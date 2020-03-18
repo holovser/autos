@@ -8,9 +8,6 @@ import diploma.autos.rating.repositories.EngineRepository;
 import diploma.autos.rating.repositories.GearboxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Service
 public class RatingService {
@@ -18,15 +15,15 @@ public class RatingService {
     EngineRepository engineRepository;
     GearboxRepository gearboxRepository;
 
-    @Autowired
-    public RatingService(EngineRepository engineRepository, GearboxRepository gearboxRepository) {
+    public RatingService( @Autowired EngineRepository engineRepository, @Autowired GearboxRepository gearboxRepository) {
         this.engineRepository = engineRepository;
+        this.gearboxRepository = gearboxRepository;
     }
 
     private int countEngineRating(
             String engineBrand,
             String engineModel,
-            int volume
+            Double volume
     ) throws EngineNotFoundException {
         Engine engine =
                 engineRepository.findByBrandAndModelAndVolume(engineBrand, engineModel, volume);
@@ -48,11 +45,10 @@ public class RatingService {
         return gearbox.getValue();
     }
 
-
     public int countCarRating(
             String engineBrand,
             String engineModel,
-            int volume,
+            Double volume,
             String gearboxBrand,
             String gearboxType
     ) throws EngineNotFoundException, GearboxNotFoundException {
