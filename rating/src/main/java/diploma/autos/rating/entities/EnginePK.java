@@ -3,12 +3,11 @@ package diploma.autos.rating.entities;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 public class EnginePK implements Serializable {
     private String brand;
     private String model;
-    private BigDecimal volume;
+    private double volume;
 
     @Column(name = "brand")
     @Id
@@ -32,11 +31,11 @@ public class EnginePK implements Serializable {
 
     @Column(name = "volume")
     @Id
-    public BigDecimal getVolume() {
+    public double getVolume() {
         return volume;
     }
 
-    public void setVolume(BigDecimal volume) {
+    public void setVolume(double volume) {
         this.volume = volume;
     }
 
@@ -47,18 +46,21 @@ public class EnginePK implements Serializable {
 
         EnginePK enginePK = (EnginePK) o;
 
+        if (Double.compare(enginePK.volume, volume) != 0) return false;
         if (brand != null ? !brand.equals(enginePK.brand) : enginePK.brand != null) return false;
         if (model != null ? !model.equals(enginePK.model) : enginePK.model != null) return false;
-        if (volume != null ? !volume.equals(enginePK.volume) : enginePK.volume != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = brand != null ? brand.hashCode() : 0;
+        int result;
+        long temp;
+        result = brand != null ? brand.hashCode() : 0;
         result = 31 * result + (model != null ? model.hashCode() : 0);
-        result = 31 * result + (volume != null ? volume.hashCode() : 0);
+        temp = Double.doubleToLongBits(volume);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 }

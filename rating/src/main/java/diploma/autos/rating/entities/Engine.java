@@ -1,14 +1,13 @@
 package diploma.autos.rating.entities;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @IdClass(EnginePK.class)
 public class Engine {
     private String brand;
     private String model;
-    private BigDecimal volume;
+    private double volume;
     private Integer value;
 
     @Id
@@ -33,11 +32,11 @@ public class Engine {
 
     @Id
     @Column(name = "volume")
-    public BigDecimal getVolume() {
+    public double getVolume() {
         return volume;
     }
 
-    public void setVolume(BigDecimal volume) {
+    public void setVolume(double volume) {
         this.volume = volume;
     }
 
@@ -58,9 +57,9 @@ public class Engine {
 
         Engine engine = (Engine) o;
 
+        if (Double.compare(engine.volume, volume) != 0) return false;
         if (brand != null ? !brand.equals(engine.brand) : engine.brand != null) return false;
         if (model != null ? !model.equals(engine.model) : engine.model != null) return false;
-        if (volume != null ? !volume.equals(engine.volume) : engine.volume != null) return false;
         if (value != null ? !value.equals(engine.value) : engine.value != null) return false;
 
         return true;
@@ -68,9 +67,12 @@ public class Engine {
 
     @Override
     public int hashCode() {
-        int result = brand != null ? brand.hashCode() : 0;
+        int result;
+        long temp;
+        result = brand != null ? brand.hashCode() : 0;
         result = 31 * result + (model != null ? model.hashCode() : 0);
-        result = 31 * result + (volume != null ? volume.hashCode() : 0);
+        temp = Double.doubleToLongBits(volume);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
