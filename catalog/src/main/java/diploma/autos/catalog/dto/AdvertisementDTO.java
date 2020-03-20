@@ -4,11 +4,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "advertisement", schema = "catalog", catalog = "")
+@Table(name = "Advertisement", schema = "catalog", catalog = "")
 public class AdvertisementDTO {
     private int advertisementId;
     private Timestamp created;
-    private Integer authorId;
 
     @Id
     @Column(name = "AdvertisementID")
@@ -24,16 +23,6 @@ public class AdvertisementDTO {
     @Column(name = "created")
     public Timestamp getCreated() {
         return created;
-    }
-
-    @Basic
-    @Column(name = "authorID")
-    public Integer getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
     }
 
     public void setCreated(Timestamp created) {

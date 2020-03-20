@@ -21,11 +21,13 @@ public class RatingsController {
             @RequestParam(name = "engine_model") String engineModel,
             @RequestParam(name = "volume") Double volume,
             @RequestParam(name = "gearbox_brand") String gearboxBrand,
-            @RequestParam(name = "gearbox_type") String gearboxType
+            @RequestParam(name = "gearbox_type") String gearboxType,
+            @RequestParam(name = "car_brand") String carBrand,
+            @RequestParam(name = "car_model") String carModel
+
     ) {
-        int carRating = 0;
         try {
-            carRating = ratingService.countCarRating(
+            int carRating = ratingService.countCarRating(
                     engineBrand,
                     engineModel,
                     volume,
