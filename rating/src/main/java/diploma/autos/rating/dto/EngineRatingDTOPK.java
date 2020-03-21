@@ -1,17 +1,16 @@
-package diploma.autos.rating.entities;
+package diploma.autos.rating.dto;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
-@Entity
-@IdClass(EnginePK.class)
-public class Engine {
+public class EngineRatingDTOPK implements Serializable {
     private String brand;
     private String model;
     private double volume;
-    private Integer value;
 
-    @Id
     @Column(name = "brand")
+    @Id
     public String getBrand() {
         return brand;
     }
@@ -20,8 +19,8 @@ public class Engine {
         this.brand = brand;
     }
 
-    @Id
     @Column(name = "model")
+    @Id
     public String getModel() {
         return model;
     }
@@ -30,8 +29,8 @@ public class Engine {
         this.model = model;
     }
 
-    @Id
     @Column(name = "volume")
+    @Id
     public double getVolume() {
         return volume;
     }
@@ -40,27 +39,16 @@ public class Engine {
         this.volume = volume;
     }
 
-    @Basic
-    @Column(name = "value")
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Engine engine = (Engine) o;
+        EngineRatingDTOPK that = (EngineRatingDTOPK) o;
 
-        if (Double.compare(engine.volume, volume) != 0) return false;
-        if (brand != null ? !brand.equals(engine.brand) : engine.brand != null) return false;
-        if (model != null ? !model.equals(engine.model) : engine.model != null) return false;
-        if (value != null ? !value.equals(engine.value) : engine.value != null) return false;
+        if (Double.compare(that.volume, volume) != 0) return false;
+        if (brand != null ? !brand.equals(that.brand) : that.brand != null) return false;
+        if (model != null ? !model.equals(that.model) : that.model != null) return false;
 
         return true;
     }
@@ -73,7 +61,6 @@ public class Engine {
         result = 31 * result + (model != null ? model.hashCode() : 0);
         temp = Double.doubleToLongBits(volume);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }
 }

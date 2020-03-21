@@ -17,21 +17,25 @@ public class RatingsController {
 
     @GetMapping("/rating")
     Integer getCarRating(
+            @RequestParam(name = "car_brand") String carBrand,
+            @RequestParam(name = "car_model") String carModel,
             @RequestParam(name = "engine_brand") String engineBrand,
             @RequestParam(name = "engine_model") String engineModel,
-            @RequestParam(name = "volume") Double volume,
+            @RequestParam(name = "engine_volume") Double engineVolume,
             @RequestParam(name = "gearbox_brand") String gearboxBrand,
-            @RequestParam(name = "gearbox_type") String gearboxType,
-            @RequestParam(name = "car_brand") String carBrand,
-            @RequestParam(name = "car_model") String carModel
+            @RequestParam(name = "gearbox_model") String gearboxModel,
+            @RequestParam(name = "gearbox_type") String gearboxType
 
     ) {
         try {
             int carRating = ratingService.countCarRating(
+                    carBrand,
+                    carModel,
                     engineBrand,
                     engineModel,
-                    volume,
+                    engineVolume,
                     gearboxBrand,
+                    gearboxModel,
                     gearboxType
             );
 //            System.out.println(carRating);

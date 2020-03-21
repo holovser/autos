@@ -1,16 +1,15 @@
-package diploma.autos.rating.entities;
+package diploma.autos.rating.dto;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 
-@Entity
-@IdClass(GearboxPK.class)
-public class Gearbox {
+public class GearboxRatingDTOPK implements Serializable {
     private String brand;
     private String type;
-    private int value;
 
-    @Id
     @Column(name = "brand")
+    @Id
     public String getBrand() {
         return brand;
     }
@@ -19,8 +18,8 @@ public class Gearbox {
         this.brand = brand;
     }
 
-    @Id
     @Column(name = "type")
+    @Id
     public String getType() {
         return type;
     }
@@ -29,26 +28,15 @@ public class Gearbox {
         this.type = type;
     }
 
-    @Basic
-    @Column(name = "value")
-    public int getValue() {
-        return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Gearbox gearbox = (Gearbox) o;
+        GearboxRatingDTOPK that = (GearboxRatingDTOPK) o;
 
-        if (value != gearbox.value) return false;
-        if (brand != null ? !brand.equals(gearbox.brand) : gearbox.brand != null) return false;
-        if (type != null ? !type.equals(gearbox.type) : gearbox.type != null) return false;
+        if (brand != null ? !brand.equals(that.brand) : that.brand != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
 
         return true;
     }
@@ -57,7 +45,6 @@ public class Gearbox {
     public int hashCode() {
         int result = brand != null ? brand.hashCode() : 0;
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + value;
         return result;
     }
 }

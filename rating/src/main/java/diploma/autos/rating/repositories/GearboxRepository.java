@@ -1,9 +1,9 @@
 package diploma.autos.rating.repositories;
 
-import diploma.autos.rating.entities.Gearbox;
-import diploma.autos.rating.entities.GearboxPK;
+import diploma.autos.rating.dto.GearboxRatingDTO;
+import diploma.autos.rating.dto.GearboxRatingDTOPK;
 import org.springframework.data.repository.CrudRepository;
 
-public interface GearboxRepository extends CrudRepository<Gearbox, GearboxPK> {
-    Gearbox findByBrandAndType(String brand, String type);
+public interface GearboxRepository extends CrudRepository<GearboxRatingDTO, GearboxRatingDTOPK> {
+    GearboxRatingDTO findByBrandAndType(String brand, String type);
 }

@@ -1,7 +1,7 @@
 package diploma.autos.rating.services;
 
-import diploma.autos.rating.entities.Engine;
-import diploma.autos.rating.entities.Gearbox;
+import diploma.autos.rating.dto.EngineRatingDTO;
+import diploma.autos.rating.dto.GearboxRatingDTO;
 import diploma.autos.rating.exceptions.EngineNotFoundException;
 import diploma.autos.rating.exceptions.GearboxNotFoundException;
 import diploma.autos.rating.repositories.EngineRepository;
@@ -25,34 +25,37 @@ public class RatingService {
             String engineModel,
             Double volume
     ) throws EngineNotFoundException {
-        Engine engine =
+        EngineRatingDTO engine =
                 engineRepository.findByBrandAndModelAndVolume(engineBrand, engineModel, volume);
         if ( engine == null ) {
             throw new EngineNotFoundException("Your engine not found");
         }
 
-        return engine.getValue();
+        return engine.getRating();
     }
 
     private int gearBoxRating(
             String gearboxBrand,
             String gearboxType
     ) throws GearboxNotFoundException {
-        Gearbox gearbox = gearboxRepository.findByBrandAndType(gearboxBrand, gearboxType);
+        GearboxRatingDTO gearbox = gearboxRepository.findByBrandAndType(gearboxBrand, gearboxType);
         if ( gearbox == null ) {
             throw new GearboxNotFoundException("Your gearbox was not found");
         }
-        return gearbox.getValue();
+        return gearbox.getRating();
     }
 
     public int countCarRating(
+            String carBrand,
+            String carModel,
             String engineBrand,
             String engineModel,
-            Double volume,
+            Double engineVolume,
             String gearboxBrand,
+            String gearboxModel,
             String gearboxType
     ) throws EngineNotFoundException, GearboxNotFoundException {
-        int engineRating = countEngineRating(engineBrand, engineModel, volume);
+        int engineRating = countEngineRating(engineBrand, engineModel, engineVolume);
         int gearboxRating = gearBoxRating(gearboxBrand, gearboxType);
         return engineRating + gearboxRating;
     }
