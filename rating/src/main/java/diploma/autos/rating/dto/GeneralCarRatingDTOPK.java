@@ -8,6 +8,14 @@ public class GeneralCarRatingDTOPK implements Serializable {
     private String carBrand;
     private String carModel;
 
+    public GeneralCarRatingDTOPK() {
+    }
+
+    public GeneralCarRatingDTOPK(String carBrand, String carModel) {
+        this.carBrand = carBrand;
+        this.carModel = carModel;
+    }
+
     @Column(name = "car_brand")
     @Id
     public String getCarBrand() {

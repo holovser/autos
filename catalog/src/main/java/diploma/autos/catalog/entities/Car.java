@@ -22,7 +22,7 @@ public class Car {
     }
 
     @Basic
-    @Column(name = "Brand")
+    @Column(name = "brand")
     public String getBrand() {
         return brand;
     }
@@ -32,9 +32,20 @@ public class Car {
     }
 
     @Basic
-    @Column(name = "Model")
+    @Column(name = "model")
     public String getModel() {
         return model;
+    }
+
+    @Column(name = "mileage")
+    public Integer mileage;
+
+    public Integer getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(Integer mileage) {
+        this.mileage = mileage;
     }
 
     public void setModel(String model) {

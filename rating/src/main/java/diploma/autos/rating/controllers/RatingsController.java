@@ -16,7 +16,7 @@ public class RatingsController {
     RatingService ratingService;
 
     @GetMapping("/rating")
-    Integer getCarRating(
+    Double getCarRating(
             @RequestParam(name = "car_brand") String carBrand,
             @RequestParam(name = "car_model") String carModel,
             @RequestParam(name = "engine_brand") String engineBrand,
@@ -25,10 +25,9 @@ public class RatingsController {
             @RequestParam(name = "gearbox_brand") String gearboxBrand,
             @RequestParam(name = "gearbox_model") String gearboxModel,
             @RequestParam(name = "gearbox_type") String gearboxType
-
     ) {
         try {
-            int carRating = ratingService.countCarRating(
+            double carRating = ratingService.countCarRating(
                     carBrand,
                     carModel,
                     engineBrand,

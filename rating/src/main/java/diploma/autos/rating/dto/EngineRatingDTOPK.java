@@ -9,6 +9,15 @@ public class EngineRatingDTOPK implements Serializable {
     private String model;
     private double volume;
 
+    public EngineRatingDTOPK() {
+    }
+
+    public EngineRatingDTOPK(String brand, String model, double volume) {
+        this.brand = brand;
+        this.model = model;
+        this.volume = volume;
+    }
+
     @Column(name = "brand")
     @Id
     public String getBrand() {
@@ -62,5 +71,14 @@ public class EngineRatingDTOPK implements Serializable {
         temp = Double.doubleToLongBits(volume);
         result = 31 * result + (int) (temp ^ (temp >>> 32));
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "EngineRatingDTOPK{" +
+                "brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", volume=" + volume +
+                '}';
     }
 }

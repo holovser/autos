@@ -3,10 +3,21 @@ package diploma.autos.rating.dto;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class GearboxRatingDTOPK implements Serializable {
     private String brand;
     private String type;
+    private String model;
+
+    public GearboxRatingDTOPK() {
+    }
+
+    public GearboxRatingDTOPK(String brand, String model,  String type) {
+        this.brand = brand;
+        this.type = type;
+        this.model = model;
+    }
 
     @Column(name = "brand")
     @Id
@@ -28,23 +39,37 @@ public class GearboxRatingDTOPK implements Serializable {
         this.type = type;
     }
 
+    @Column(name = "model")
+    @Id
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         GearboxRatingDTOPK that = (GearboxRatingDTOPK) o;
-
-        if (brand != null ? !brand.equals(that.brand) : that.brand != null) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
-
-        return true;
+        return Objects.equals(brand, that.brand) &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(model, that.model);
     }
 
     @Override
     public int hashCode() {
-        int result = brand != null ? brand.hashCode() : 0;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        return result;
+        return Objects.hash(brand, type, model);
+    }
+
+    @Override
+    public String toString() {
+        return "GearboxRatingDTOPK{" +
+                "brand='" + brand + '\'' +
+                ", type='" + type + '\'' +
+                ", model='" + model + '\'' +
+                '}';
     }
 }
