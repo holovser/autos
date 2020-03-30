@@ -1,6 +1,4 @@
-package diploma.autos.creation.entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package diploma.autos.similarity.entities;
 
 import javax.persistence.*;
 
@@ -18,18 +16,7 @@ public class Car {
     private String model;
 
     @Column(name = "mileage")
-    private Integer mileage;
-
-    @Column()
-    private Integer price;
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
+    public Integer mileage;
 
     public Integer getMileage() {
         return mileage;

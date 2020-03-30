@@ -1,4 +1,4 @@
-package diploma.autos.creation.entities;
+package diploma.autos.similarity.entities;
 
 import javax.persistence.*;
 
