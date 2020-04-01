@@ -1,9 +1,7 @@
-package diploma.autos.creation.entities;
+package diploma.autos.catalog.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import java.util.Set;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
 @Entity
 public class Engine {

@@ -1,6 +1,4 @@
-package diploma.autos.creation.entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package diploma.autos.catalog.entities;
 
 import javax.persistence.*;
 

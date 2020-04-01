@@ -26,6 +26,17 @@ public class Advertisement {
     @Column(name = "rating")
     private double rating;
 
+    @Column(name = "price")
+    private int price;
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public double getRating() {
         return rating;
     }

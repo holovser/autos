@@ -18,7 +18,18 @@ public class Car {
     private String model;
 
     @Column(name = "mileage")
-    public Integer mileage;
+    private Integer mileage;
+
+    @Column()
+    private Integer price;
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
 
     public Integer getMileage() {
         return mileage;
