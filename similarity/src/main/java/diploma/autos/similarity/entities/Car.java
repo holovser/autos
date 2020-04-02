@@ -1,5 +1,7 @@
 package diploma.autos.similarity.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -30,7 +32,8 @@ public class Car {
         return carId;
     }
 
-    @OneToOne(mappedBy = "car")
+    @JsonIgnore
+    @OneToOne(mappedBy = "car", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Advertisement adv;
 
     @ManyToOne(cascade=CascadeType.ALL)

@@ -85,6 +85,18 @@ public class Advertisement {
     }
 
     @Override
+    public String toString() {
+        return "Advertisement{" +
+                "created=" + created +
+                ", advertisementId=" + advertisementId +
+                ", author=" + author +
+                ", car=" + car +
+                ", rating=" + rating +
+                ", price=" + price +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         int result = created != null ? created.hashCode() : 0;
         result = 31 * result;
