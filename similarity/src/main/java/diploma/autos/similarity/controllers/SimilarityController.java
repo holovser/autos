@@ -31,6 +31,7 @@ public class SimilarityController {
 //            System.out.println("Response json: " + responseJSON);
 //            jsonArray = new JSONArray(responseString);
         } catch (Exception e ) {
+            System.out.println("Exception: " + e.getMessage());
             return new ResponseEntity<String>(e.getMessage(), null, HttpStatus.NOT_ACCEPTABLE);
         }
         return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);

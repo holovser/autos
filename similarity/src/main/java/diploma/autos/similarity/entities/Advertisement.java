@@ -24,24 +24,24 @@ public class Advertisement {
     private Car car;
 
     @Column(name = "rating")
-    private double rating;
+    private Double rating;
 
     @Column(name = "price")
-    private int price;
+    private Integer price;
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 

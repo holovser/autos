@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface AdvertisementRepository extends CrudRepository<Advertisement, Integer> {
     Advertisement findAdvertisementByAdvertisementId(int id);
-    List<Advertisement> findByPriceGreaterThan(int lowPrice);
+    List<Advertisement> findByPriceGreaterThanEqualAndPriceLessThanEqual(int lowPrice, int highPrice);
 }
