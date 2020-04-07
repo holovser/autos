@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface CarRepository extends CrudRepository<Car, Integer> {
     Optional<Car> findByCarId(int carId);
+    List<Car> findByMileageGreaterThanEqualAndAdvLessThanEqual(int lowerMileage, int highMileage);
 }

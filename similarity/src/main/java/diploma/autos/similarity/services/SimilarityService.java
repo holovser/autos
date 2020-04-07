@@ -31,7 +31,12 @@ public class SimilarityService {
         return pivotCarOptional.get();
     }
 
-    public List<Car> findSimilarCars(int carId ) throws Exception {
+    private List<Car> findSimilarMileageCars( int mileage) {
+        return null;
+    }
+
+
+    public List<Advertisement> findSimilarAdvs(int carId ) throws Exception {
         Car pivotCar = findCarById(carId);
         Advertisement pivotAdv = pivotCar.getAdv();
         Integer pivotPrice = pivotAdv.getPrice();
@@ -41,6 +46,8 @@ public class SimilarityService {
                 advRepository.findByPriceGreaterThanEqualAndPriceLessThanEqual(
                         (int)((double)pivotPrice*0.8),
                         (int)((double)pivotPrice*1.2));
+
+
 
 
 //        System.out.println("Pivot Car: " + mapper.writeValueAsString(pivotCar));

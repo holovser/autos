@@ -26,8 +26,8 @@ public class SimilarityController {
         String responseJSON = "";
         JSONArray jsonArray;
         try {
-            List similarCars = similarityService.findSimilarCars(car.getCarId());
-            responseJSON = mapper.writeValueAsString(similarCars);
+            List similarAdvs = similarityService.findSimilarAdvs(car.getCarId());
+            responseJSON = mapper.writeValueAsString(similarAdvs);
 //            System.out.println("Response json: " + responseJSON);
 //            jsonArray = new JSONArray(responseString);
         } catch (Exception e ) {
