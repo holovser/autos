@@ -11,12 +11,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
 public class SimilarityController {
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper;
+
+    public SimilarityController() {
+        mapper = new ObjectMapper();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm.sss.S");
+        mapper.setDateFormat(df);
+    }
 
     @Autowired
     private SimilarityService similarityService;
@@ -27,14 +35,13 @@ public class SimilarityController {
         JSONArray jsonArray;
         try {
             List similarAdvs = similarityService.findSimilarAdvs(car.getCarId());
+            System.out.println("Test");
             responseJSON = mapper.writeValueAsString(similarAdvs);
-//            System.out.println("Response json: " + responseJSON);
-//            jsonArray = new JSONArray(responseString);
-        } catch (Exception e ) {
-            System.out.println("Exception: " + e.getMessage());
+            return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
             return new ResponseEntity<String>(e.getMessage(), null, HttpStatus.NOT_ACCEPTABLE);
         }
-        return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
     }
 
 

@@ -8,6 +8,7 @@ import diploma.autos.similarity.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +32,11 @@ public class SimilarityService {
         return pivotCarOptional.get();
     }
 
-    private List<Car> findSimilarMileageCars( int mileage) {
-        return null;
+    private List<Car> findSimilarMileageCars(int mileage) {
+        List<Car> similarMileageCars = carRepository.findByMileageGreaterThanEqualAndMileageLessThanEqual(
+                (int)(mileage*0.8), (int)(mileage*1.2)
+        );
+        return similarMileageCars;
     }
 
 
@@ -44,18 +48,28 @@ public class SimilarityService {
         System.out.println("Pivot Price: " +  pivotPrice);
         List<Advertisement> similarPriceAdvs =
                 advRepository.findByPriceGreaterThanEqualAndPriceLessThanEqual(
-                        (int)((double)pivotPrice*0.8),
-                        (int)((double)pivotPrice*1.2));
+                        (int)(pivotPrice*0.8),
+                        (int)(pivotPrice*1.2));
+        List<Car> similarMileageCars = findSimilarMileageCars(pivotCar.getMileage());
+        List<Advertisement> similarMileageAdvs = new ArrayList<Advertisement>();
 
+        for (Car iterCar: similarMileageCars) {
+            Advertisement tmpAdv = iterCar.getAdv();
+            similarMileageAdvs.add(tmpAdv);
+        }
+//        System.out.println(similarMileageAdvs);
 
+        ArrayList<Advertisement> resultAdvs = new ArrayList<>();
 
+        resultAdvs.addAll(similarPriceAdvs);
+        resultAdvs.addAll(similarMileageAdvs);
 
 //        System.out.println("Pivot Car: " + mapper.writeValueAsString(pivotCar));
 //        System.out.println("Pivot Advertisement: " + mapper.writeValueAsString(pivotAdv));
 //        System.out.println("Pivot Advertisement: " + pivotAdv.toString());
 
-        System.out.println(similarPriceAdvs);
-        return null;
+//        System.out.println(similarPriceAdvs);
+        return resultAdvs;
     }
 
 }
