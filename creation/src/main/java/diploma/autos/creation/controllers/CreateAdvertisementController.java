@@ -74,7 +74,7 @@ public class CreateAdvertisementController {
 //        return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
 //    }
 
-    @PostMapping("/adv/create")
+    @PostMapping("/adv")
     public ResponseEntity<String> createAdvertising(
             @RequestBody Advertisement adv
             ) throws JsonProcessingException {
