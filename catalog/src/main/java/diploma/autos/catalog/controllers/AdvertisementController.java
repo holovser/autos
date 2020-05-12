@@ -23,6 +23,7 @@ public class AdvertisementController {
 
     @Autowired
     AdvertisementRepository advertisementRepository;
+
     @Autowired
     AdvertisementDTORepository advertisementDTORepository;
 
