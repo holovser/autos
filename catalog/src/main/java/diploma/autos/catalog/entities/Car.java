@@ -120,6 +120,20 @@ public class Car {
     }
 
     @Override
+    public String toString() {
+        return "Car{" +
+                "carId=" + carId +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", mileage=" + mileage +
+                ", price=" + price +
+                ", adv=" + adv +
+                ", engine=" + engine +
+                ", gearbox=" + gearbox +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

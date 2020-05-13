@@ -8,6 +8,7 @@ import diploma.autos.catalog.entities.Car;
 import diploma.autos.catalog.repositories.AdvertisementDTORepository;
 import diploma.autos.catalog.repositories.AdvertisementRepository;
 import diploma.autos.catalog.repositories.CarRepository;
+import diploma.autos.catalog.services.CRUDService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,21 +20,17 @@ import java.util.ArrayList;
 public class AdvertisementController {
 
     @Autowired
+    CRUDService crudService;
+
+    @Autowired
     CarRepository carRepository;
-
-    @Autowired
-    AdvertisementRepository advertisementRepository;
-
-    @Autowired
-    AdvertisementDTORepository advertisementDTORepository;
-
 
     @RequestMapping("/insert")
     public Car insertTestCar() {
         Car tmpCar = new Car();
-        tmpCar.setCarId(1);
-        tmpCar.setBrand("Toyota");
-        tmpCar.setModel("Corolla");
+        tmpCar.setCarId(12);
+        tmpCar.setBrand("1");
+        tmpCar.setModel("2");
 
         carRepository.save(tmpCar);
 
@@ -42,25 +39,19 @@ public class AdvertisementController {
 
     @RequestMapping("/adv")
     public Iterable<AdvertisementDTO> getAdv() {
-        ArrayList<AdvertisementDTO> allAdvs = (ArrayList<AdvertisementDTO>) advertisementDTORepository.findAll();
-//        allAdvs.stream().forEach( adv -> adv);
-        return allAdvs;
+        return crudService.getAdvsDTO();
     }
 
 
     @RequestMapping("/adv/{id}")
     public Advertisement getAdv(@PathVariable Integer id) {
-        Advertisement adv = advertisementRepository.findAdvertisementByAdvertisementId(id);
+        return crudService.getAdvByAdvId(id);
 //        ObjectMapper mapper = new ObjectMapper();
-
-        return adv;
     }
 
     @RequestMapping("/adv/{id}/author")
     public Author getAuthor(@PathVariable Integer id) {
-        Advertisement adv = advertisementRepository.findAdvertisementByAdvertisementId(id);
-        System.out.println(adv.getAuthor());
-        return adv.getAuthor();
+        return crudService.getAdvAuthor(id);
     }
 
 }
