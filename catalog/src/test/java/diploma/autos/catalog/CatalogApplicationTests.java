@@ -30,7 +30,7 @@ public class CatalogApplicationTests {
 	public void test1() {
 
 		Car tmpCar = new Car();
-        tmpCar.setCarId(7);
+//        tmpCar.setCarId(7);
         tmpCar.setBrand("1234");
         tmpCar.setModel("1234");
 

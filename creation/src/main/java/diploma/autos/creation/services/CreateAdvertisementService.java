@@ -27,15 +27,7 @@ public class CreateAdvertisementService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void createAdvertisement(Advertisement adv) throws CreateAdvertisementException {
-//        if ( advRepository.findAdvertisementByAdvertisementId(adv.getAdvertisementId()).isPresent() ) {
-//            System.out.println("Save advertisement");
-//            advRepository.save(adv);
-//        } else {
-//            throw new CreateAdvertisementException("Advertisement already exists");
-//        }
-
-        System.out.println("Test");
+    protected URI createRatingURI(Advertisement adv) {
         URI targetUrl = UriComponentsBuilder.fromUriString("http://cars-rating-service")  // Build the base link
                 .path("/rating")                            // Add path
                 .queryParam("car_brand", adv.getCar().getBrand())                                // Add one or more query params
@@ -49,10 +41,23 @@ public class CreateAdvertisementService {
                 .build()                                                 // Build the URL
                 .encode()                                                // Encode any URI items that need to be encoded
                 .toUri();
+        return targetUrl;
+    }
+
+    public void createAdvertisement(Advertisement adv) throws CreateAdvertisementException {
+//        if ( advRepository.findAdvertisementByAdvertisementId(adv.getAdvertisementId()).isPresent() ) {
+//            System.out.println("Save advertisement");
+//            advRepository.save(adv);
+//        } else {
+//            throw new CreateAdvertisementException("Advertisement already exists");
+//        }
+
+        System.out.println("Test");
+        URI targetRatingUrl = createRatingURI(adv);
         System.out.println("Test");
         Double ratingValue = 0.0;
         try {
-            ratingValue = restTemplate.getForObject(targetUrl, Double.class);
+            ratingValue = restTemplate.getForObject(targetRatingUrl, Double.class);
         } catch (RestClientException e) {
             System.out.println(e.getMessage());
         }

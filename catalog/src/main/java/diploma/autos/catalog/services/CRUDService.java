@@ -40,7 +40,4 @@ public class CRUDService {
         System.out.println(adv.getAuthor());
         return adv.getAuthor();
     }
-
-
-
 }

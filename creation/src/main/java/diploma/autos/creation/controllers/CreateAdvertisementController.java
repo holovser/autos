@@ -86,7 +86,7 @@ public class CreateAdvertisementController {
             createAdvertisementService.createAdvertisement(adv);
             responseJSON = mapper.writeValueAsString(adv);
         } catch (Exception e) {
-            return new ResponseEntity<String>(e.getMessage(), null, HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<String>(e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
     }
