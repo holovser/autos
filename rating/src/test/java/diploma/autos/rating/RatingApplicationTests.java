@@ -103,7 +103,7 @@ class RatingApplicationTests {
 				"manual"
 		);
 
-		assertEquals((4+5+6)/3.0, rating);
+		assertEquals((4+5+7)/3.0, rating);
 	}
 
 
