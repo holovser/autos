@@ -74,9 +74,9 @@ public class RatingService {
                         new GearboxRatingDTOPK(gearboxBrand, gearboxModel, gearboxType)
                 );
 
-        System.out.println(generalCarRating.getRating());
-        System.out.println(engineRating.getRating());
-        System.out.println(gearboxRating.getRating());
+//        System.out.println(generalCarRating.getRating());
+//        System.out.println(engineRating.getRating());
+//        System.out.println(gearboxRating.getRating());
         return ( generalCarRating.getRating() + engineRating.getRating() + gearboxRating.getRating() ) / 3.0;
     }
 
