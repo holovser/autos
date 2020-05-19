@@ -9,8 +9,19 @@ import java.util.Objects;
 public class GearboxRatingDTO {
     private String brand;
     private String type;
-    private int rating;
+    private Integer rating;
     private String model;
+
+    public GearboxRatingDTO(String brand, String type, Integer rating, String model) {
+        this.brand = brand;
+        this.type = type;
+        this.rating = rating;
+        this.model = model;
+    }
+
+
+    public GearboxRatingDTO() {
+    }
 
     @Id
     @Column(name = "brand")
@@ -34,11 +45,11 @@ public class GearboxRatingDTO {
 
     @Basic
     @Column(name = "rating")
-    public int getRating() {
+    public Integer getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Integer rating) {
         this.rating = rating;
     }
 

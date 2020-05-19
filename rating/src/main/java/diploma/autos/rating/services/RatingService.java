@@ -16,20 +16,23 @@ import java.util.Optional;
 @Service
 public class RatingService {
 
+    @Autowired
     EngineRatingRepository engineRatingRepository;
+    @Autowired
     GearboxRatingRepository gearboxRatingRepository;
+    @Autowired
     GeneralCarRatingRepository generalCarRatingRepository;
 
-    @Autowired
-    public RatingService(
-            EngineRatingRepository engineRatingRepository,
-            GearboxRatingRepository gearboxRatingRepository,
-            GeneralCarRatingRepository generalCarRatingRepository
-    ) {
-        this.engineRatingRepository = engineRatingRepository;
-        this.gearboxRatingRepository = gearboxRatingRepository;
-        this.generalCarRatingRepository = generalCarRatingRepository;
-    }
+//    @Autowired
+//    public RatingService(
+//            EngineRatingRepository engineRatingRepository,
+//            GearboxRatingRepository gearboxRatingRepository,
+//            GeneralCarRatingRepository generalCarRatingRepository
+//    ) {
+//        this.engineRatingRepository = engineRatingRepository;
+//        this.gearboxRatingRepository = gearboxRatingRepository;
+//        this.generalCarRatingRepository = generalCarRatingRepository;
+//    }
 
     // PK stands for primary key
     public <DTO, PK> DTO getRatingObject(CrudRepository repository, PK pk
