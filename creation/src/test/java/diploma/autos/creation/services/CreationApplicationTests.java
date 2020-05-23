@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.client.RestTemplate;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -40,13 +41,14 @@ class CreationApplicationTests {
 
     @Test
 //	@Rollback
-//	@Transactional
+	@Transactional
     public void createAdvertisementTest() {
         Advertisement adv = new Advertisement();
 //        advRepository.save(adv);
 //		System.out.println("test");
         assertThrows(DataIntegrityViolationException.class, () -> advRepository.save(adv));
 //		System.out.println(advRepository.findAll());
+		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
     }
 
     @Test

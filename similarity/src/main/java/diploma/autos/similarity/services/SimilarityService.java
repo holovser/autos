@@ -23,7 +23,7 @@ public class SimilarityService {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    private Car findCarById(int carId) throws Exception {
+    protected Car findCarById(int carId) throws Exception {
         Optional<Car> pivotCarOptional = carRepository.findByCarId(carId);
         if ( pivotCarOptional.isEmpty() ) {
             System.out.println("Not found pivot car");
@@ -32,7 +32,7 @@ public class SimilarityService {
         return pivotCarOptional.get();
     }
 
-    private List<Car> findSimilarMileageCars(int mileage) {
+    protected List<Car> findSimilarMileageCars(int mileage) {
         List<Car> similarMileageCars = carRepository.findByMileageGreaterThanEqualAndMileageLessThanEqual(
                 (int)(mileage*0.8), (int)(mileage*1.2)
         );
