@@ -41,65 +41,18 @@ class CreationApplicationTests {
 
     @Test
 //	@Rollback
-	@Transactional
+//	@Transactional
     public void createAdvertisementTest() {
         Advertisement adv = new Advertisement();
-//        advRepository.save(adv);
-//		System.out.println("test");
         assertThrows(DataIntegrityViolationException.class, () -> advRepository.save(adv));
-//		System.out.println(advRepository.findAll());
-		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
     }
 
     @Test
 	public void createURITest() {
 
-    	Advertisement adv = new Advertisement();
-		adv.setPrice(500);
-
-		Car car = new Car();
-		car.setBrand("bmw");
-		car.setModel("328");
-		car.setMileage(200000);
-
-		Engine engine = new Engine();
-
-		EngineId engineId = new EngineId();
-		engineId.setEngineBrand("bmw");
-		engineId.setEngineModel("b58");
-		engineId.setEngineVolume(3);
-
-		engine.setEngineId(engineId);
-
-		car.setEngine(engine);
-
-		Gearbox gearbox = new Gearbox();
-
-		GearboxId gearboxId = new GearboxId();
-		gearboxId.setGearboxBrand("bmw");
-		gearboxId.setGearboxModel("5DS");
-		gearboxId.setGearboxType("manual");
-
-		gearbox.setGearboxId(gearboxId);
-
-		car.setGearbox(gearbox);
-
-		adv.setCar(car);
-
-		URI targetURIActual = createAdvertisementService.createRatingURI(adv);
-		String queryActual = targetURIActual.getQuery();
+		URI targetURIActual = createAdvertisementService.createRatingURI();
 
 		assertEquals("/rating", targetURIActual.getPath());
-
-		assertAll(
-				() -> assertTrue( targetURIActual.getQuery().contains("car_brand=bmw")),
-				() -> assertTrue( targetURIActual.getQuery().contains("car_model=328")),
-				() -> assertTrue( targetURIActual.getQuery().contains("engine_brand=bmw")),
-				() -> assertTrue( targetURIActual.getQuery().contains("engine_model=b58")),
-				() -> assertTrue( targetURIActual.getQuery().contains("engine_volume=3.0")),
-				() -> assertTrue( targetURIActual.getQuery().contains("gearbox_brand=bmw")),
-				() -> assertTrue( targetURIActual.getQuery().contains("gearbox_model=5DS")),
-				() -> assertTrue( targetURIActual.getQuery().contains("gearbox_type=manual"))
-				);
 	}
 }

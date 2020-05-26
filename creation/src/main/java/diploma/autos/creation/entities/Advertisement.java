@@ -2,6 +2,7 @@ package diploma.autos.creation.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ADVERTISEMENT")
@@ -81,8 +82,15 @@ public class Advertisement {
 
     @Override
     public boolean equals(Object o) {
-
-        return true;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Advertisement that = (Advertisement) o;
+        return advertisementId == that.advertisementId &&
+                created.equals(that.created) &&
+                author.equals(that.author) &&
+                car.equals(that.car) &&
+                Objects.equals(rating, that.rating) &&
+                price.equals(that.price);
     }
 
     @Override

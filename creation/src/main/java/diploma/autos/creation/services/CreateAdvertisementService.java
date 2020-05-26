@@ -5,9 +5,12 @@ import diploma.autos.creation.dto.AuthorDTO;
 import diploma.autos.creation.dto.CarDTO;
 import diploma.autos.creation.entities.Advertisement;
 import diploma.autos.creation.exceptions.CreateAdvertisementException;
+import diploma.autos.creation.model.Request;
 import diploma.autos.creation.repositories.AdvertisementDTORepository;
 import diploma.autos.creation.repositories.AdvertisementRepository;
+import diploma.autos.creation.repositories.GearboxRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
@@ -23,41 +26,47 @@ public class CreateAdvertisementService {
 
     @Autowired
     private AdvertisementRepository advRepository;
+//
+//    @Autowired
+//    private EngineRepository engineRepository;
+//
+//    @Autowired
+//    private GearboxRepository gearboxRepository;
 
     @Autowired
     private RestTemplate restTemplate;
 
-    protected URI createRatingURI(Advertisement adv) {
+    protected URI createRatingURI() {
         URI targetUrl = UriComponentsBuilder.fromUriString("http://cars-rating-service")  // Build the base link
                 .path("/rating")                            // Add path
-                .queryParam("car_brand", adv.getCar().getBrand())                                // Add one or more query params
-                .queryParam("car_model", adv.getCar().getModel())
-                .queryParam("engine_brand", adv.getCar().getEngine().getEngineId().getEngineBrand())
-                .queryParam("engine_model", adv.getCar().getEngine().getEngineId().getEngineModel())
-                .queryParam("engine_volume", adv.getCar().getEngine().getEngineId().getEngineVolume())
-                .queryParam("gearbox_brand", adv.getCar().getGearbox().getGearboxId().getGearboxBrand())
-                .queryParam("gearbox_model", adv.getCar().getGearbox().getGearboxId().getGearboxModel())
-                .queryParam("gearbox_type", adv.getCar().getGearbox().getGearboxId().getGearboxType())
                 .build()                                                 // Build the URL
                 .encode()                                                // Encode any URI items that need to be encoded
                 .toUri();
         return targetUrl;
     }
 
-    public void createAdvertisement(Advertisement adv) throws CreateAdvertisementException {
-//        if ( advRepository.findAdvertisementByAdvertisementId(adv.getAdvertisementId()).isPresent() ) {
-//            System.out.println("Save advertisement");
-//            advRepository.save(adv);
-//        } else {
-//            throw new CreateAdvertisementException("Advertisement already exists");
-//        }
+    protected Request createRequest(Advertisement adv) {
+        Request request = new Request(adv.getCar().getBrand(),
+                adv.getCar().getModel(),
+                adv.getCar().getEngine().getEngineId().getEngineBrand(),
+                adv.getCar().getEngine().getEngineId().getEngineModel(),
+                adv.getCar().getEngine().getEngineId().getEngineVolume(),
+                adv.getCar().getGearbox().getGearboxId().getGearboxBrand(),
+                adv.getCar().getGearbox().getGearboxId().getGearboxModel(),
+                adv.getCar().getGearbox().getGearboxId().getGearboxType()
+        );
+        return request;
+    }
 
-        System.out.println("Test");
-        URI targetRatingUrl = createRatingURI(adv);
-        System.out.println("Test");
+    public void createAdvertisement(Advertisement adv) throws CreateAdvertisementException {
+        URI targetRatingUrl = createRatingURI();
+        ResponseEntity<Double> ratingEntity;
         Double ratingValue = 0.0;
         try {
-            ratingValue = restTemplate.getForObject(targetRatingUrl, Double.class);
+            Request request = createRequest(adv);
+            ratingEntity = restTemplate.postForEntity( targetRatingUrl, request, Double.class);
+            ratingValue = ratingEntity.getBody();
+//            ratingValue = restTemplate.getForObject(targetRatingUrl, Double.class);
         } catch (RestClientException e) {
             System.out.println(e.getMessage());
         }

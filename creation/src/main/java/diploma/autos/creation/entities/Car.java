@@ -46,7 +46,7 @@ public class Car {
     @OneToOne(mappedBy = "car")
     private Advertisement adv;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumns({
             @JoinColumn(
                     name = "Engine_engine_brand",
@@ -60,7 +60,7 @@ public class Car {
     })
     private Engine engine;
 
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.MERGE)
     @JoinColumns({
             @JoinColumn(
                     name = "Gearbox_gearbox_brand",
