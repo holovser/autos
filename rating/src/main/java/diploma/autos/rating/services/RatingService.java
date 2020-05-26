@@ -1,8 +1,7 @@
 package diploma.autos.rating.services;
 
 import diploma.autos.rating.dto.*;
-import diploma.autos.rating.exceptions.EngineNotFoundException;
-import diploma.autos.rating.exceptions.GearboxNotFoundException;
+import diploma.autos.rating.exceptions.NotFoundException;
 import diploma.autos.rating.repositories.EngineRatingRepository;
 import diploma.autos.rating.repositories.GearboxRatingRepository;
 import diploma.autos.rating.repositories.GeneralCarRatingRepository;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,7 +40,7 @@ public class RatingService {
 //        System.out.println(pk.toString());
 
         if (dtoOptional.isEmpty()) {
-            throw new Exception(CrudRepository.class.getName() + " Was not successful in looking for object");
+            throw new NotFoundException(CrudRepository.class.getName() + " Was not successful in looking for object");
         }
         return dtoOptional.get();
     }
@@ -57,22 +55,37 @@ public class RatingService {
             String gearboxModel,
             String gearboxType
     ) throws Exception {
-        GeneralCarRatingDTO generalCarRating =
-                this.<GeneralCarRatingDTO, GeneralCarRatingDTOPK>getRatingObject(
-                        generalCarRatingRepository,
-                        new GeneralCarRatingDTOPK(carBrand, carModel)
-                );
 
-        EngineRatingDTO engineRating =
-                this.<EngineRatingDTO, EngineRatingDTOPK>getRatingObject(
-                        engineRatingRepository,
-                        new EngineRatingDTOPK(engineBrand, engineModel, engineVolume)
-                );
-        GearboxRatingDTO gearboxRating =
-                this.<GearboxRatingDTO, GearboxRatingDTOPK>getRatingObject(
-                        gearboxRatingRepository,
-                        new GearboxRatingDTOPK(gearboxBrand, gearboxModel, gearboxType)
-                );
+        GeneralCarRatingDTO generalCarRating = new GeneralCarRatingDTO();
+        try {
+            generalCarRating = this.<GeneralCarRatingDTO, GeneralCarRatingDTOPK>getRatingObject(
+                    generalCarRatingRepository,
+                    new GeneralCarRatingDTOPK(carBrand, carModel)
+            );
+        } catch (NotFoundException e) {
+            generalCarRating.setRating(0);
+        }
+
+        EngineRatingDTO engineRating = new EngineRatingDTO();
+        try {
+            engineRating = this.<EngineRatingDTO, EngineRatingDTOPK>getRatingObject(
+                    engineRatingRepository,
+                    new EngineRatingDTOPK(engineBrand, engineModel, engineVolume)
+            );
+        } catch (NotFoundException e ) {
+            engineRating.setRating(0);
+        }
+
+
+        GearboxRatingDTO gearboxRating = new GearboxRatingDTO();
+        try {
+            gearboxRating = this.<GearboxRatingDTO, GearboxRatingDTOPK>getRatingObject(
+                    gearboxRatingRepository,
+                    new GearboxRatingDTOPK(gearboxBrand, gearboxModel, gearboxType)
+            );
+        } catch (NotFoundException e) {
+            gearboxRating.setRating(0);
+        }
 
 //        System.out.println(generalCarRating.getRating());
 //        System.out.println(engineRating.getRating());

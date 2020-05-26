@@ -25,17 +25,17 @@ public class AdvertisementController {
     @Autowired
     CarRepository carRepository;
 
-    @RequestMapping("/insert")
-    public Car insertTestCar() {
-        Car tmpCar = new Car();
-        tmpCar.setCarId(12);
-        tmpCar.setBrand("1");
-        tmpCar.setModel("2");
-
-        carRepository.save(tmpCar);
-
-        return tmpCar;
-    }
+//    @RequestMapping("/insert")
+//    public Car insertTestCar() {
+//        Car tmpCar = new Car();
+//        tmpCar.setCarId(12);
+//        tmpCar.setBrand("1");
+//        tmpCar.setModel("2");
+//
+//        carRepository.save(tmpCar);
+//
+//        return tmpCar;
+//    }
 
     @RequestMapping("/adv")
     public Iterable<AdvertisementDTO> getAdv() {

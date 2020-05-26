@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class SimilarityController {
@@ -34,7 +35,7 @@ public class SimilarityController {
         String responseJSON = "";
         JSONArray jsonArray;
         try {
-            List similarAdvs = similarityService.findSimilarAdvs(car.getCarId());
+            Set similarAdvs = similarityService.findSimilarAdvs(car.getCarId());
             System.out.println("Test");
             responseJSON = mapper.writeValueAsString(similarAdvs);
             return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);

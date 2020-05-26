@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+// This class was copied from https://github.com/koushikkothagal/spring-security-jwt
 public class JwtUtil {
 
     private String SECRET_KEY = "secre1231231k23k1c2n1kj2nc3kj1n2kcnk12cn1kjc2nkcn12c1n2kcn1kj2c3";

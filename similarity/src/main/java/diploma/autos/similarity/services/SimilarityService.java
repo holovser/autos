@@ -8,9 +8,7 @@ import diploma.autos.similarity.repositories.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class SimilarityService {
@@ -39,37 +37,49 @@ public class SimilarityService {
         return similarMileageCars;
     }
 
+    protected List<Advertisement> findSimilarPriceAdvs(int pivotPrice) {
+        List<Advertisement> similarPriceAdvs = advRepository.findByPriceGreaterThanEqualAndPriceLessThanEqual(
+                (int)(pivotPrice*0.8),
+                (int)(pivotPrice*1.2));
 
-    public List<Advertisement> findSimilarAdvs(int carId ) throws Exception {
+        return similarPriceAdvs;
+    }
+
+    protected List<Advertisement> findSimilarRatingAdvs(double pivotRating) {
+        List<Advertisement> similarRatingAdvs = advRepository.findByRatingGreaterThanEqualAndRatingLessThanEqual(
+                pivotRating*0.6,
+                pivotRating*1.4
+        );
+
+        return similarRatingAdvs;
+    }
+
+
+    public Set<Advertisement> findSimilarAdvs(int carId ) throws Exception {
         Car pivotCar = findCarById(carId);
         Advertisement pivotAdv = pivotCar.getAdv();
         Integer pivotPrice = pivotAdv.getPrice();
 
         System.out.println("Pivot Price: " +  pivotPrice);
-        List<Advertisement> similarPriceAdvs =
-                advRepository.findByPriceGreaterThanEqualAndPriceLessThanEqual(
-                        (int)(pivotPrice*0.8),
-                        (int)(pivotPrice*1.2));
-        List<Car> similarMileageCars = findSimilarMileageCars(pivotCar.getMileage());
-        List<Advertisement> similarMileageAdvs = new ArrayList<Advertisement>();
+        List<Advertisement> similarPriceAdvs = findSimilarPriceAdvs(pivotCar.getMileage());
 
-        for (Car iterCar: similarMileageCars) {
-            Advertisement tmpAdv = iterCar.getAdv();
-            similarMileageAdvs.add(tmpAdv);
+        //similar mileage cars retrieving was deprecated because of the absence of sense (cars with similar mileage are not similar)
+//        List<Car> similarMileageCars = findSimilarMileageCars(pivotCar.getMileage());
+
+        List<Advertisement> similarRatingAdvs = new ArrayList<Advertisement>();
+        if (pivotAdv != null) {
+            similarRatingAdvs = findSimilarRatingAdvs(pivotAdv.getRating());
         }
-//        System.out.println(similarMileageAdvs);
 
-        ArrayList<Advertisement> resultAdvs = new ArrayList<>();
+        Set<Advertisement> resultAdvs = new HashSet<Advertisement>();
 
         resultAdvs.addAll(similarPriceAdvs);
-        resultAdvs.addAll(similarMileageAdvs);
+        resultAdvs.addAll(similarRatingAdvs);
 
-//        System.out.println("Pivot Car: " + mapper.writeValueAsString(pivotCar));
-//        System.out.println("Pivot Advertisement: " + mapper.writeValueAsString(pivotAdv));
-//        System.out.println("Pivot Advertisement: " + pivotAdv.toString());
+        resultAdvs.remove(pivotAdv);
 
-//        System.out.println(similarPriceAdvs);
+        System.out.println(resultAdvs);
+
         return resultAdvs;
     }
-
 }
