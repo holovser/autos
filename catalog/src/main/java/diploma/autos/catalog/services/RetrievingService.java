@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
-public class CRUDService {
+public class RetrievingService {
 
-    public CRUDService() {
+    public RetrievingService() {
     }
 
     @Autowired
@@ -31,13 +32,22 @@ public class CRUDService {
         return (ArrayList<AdvertisementDTO>) advertisementDTORepository.findAll();
     }
 
-    public Advertisement getAdvByAdvId(Integer id) {
-        return advertisementRepository.findAdvertisementByAdvertisementId(id);
+    public Advertisement getAdvByAdvId(Integer id) throws Exception {
+        Optional<Advertisement> advOptional = advertisementRepository.findAdvertisementByAdvertisementId(id);
+        if ( advOptional.isPresent() ) {
+            return advOptional.get();
+        } else {
+            throw new Exception("Advertisement not found");
+        }
     }
 
-    public Author getAdvAuthor(Integer id) {
-        Advertisement adv = advertisementRepository.findAdvertisementByAdvertisementId(id);
-        System.out.println(adv.getAuthor());
-        return adv.getAuthor();
+    public Author getAdvAuthor(Integer id) throws Exception {
+        Optional<Advertisement> advOptional = advertisementRepository.findAdvertisementByAdvertisementId(id);
+
+        if ( advOptional.isPresent() && advOptional.get().getAuthor() != null ) {
+            return advOptional.get().getAuthor();
+        } else {
+            throw new Exception("Author not found");
+        }
     }
 }

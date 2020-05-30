@@ -8,6 +8,8 @@ import java.sql.Timestamp;
 public class AdvertisementDTO {
     private int advertisementId;
     private Timestamp created;
+    private Double rating;
+    private Integer price;
 
     @Id
     @Column(name = "AdvertisementID")
@@ -23,6 +25,24 @@ public class AdvertisementDTO {
     @Column(name = "created")
     public Timestamp getCreated() {
         return created;
+    }
+
+    @Column()
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    @Column()
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
     public void setCreated(Timestamp created) {

@@ -1,57 +1,82 @@
 package diploma.autos.catalog.controllers;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import diploma.autos.catalog.dto.AdvertisementDTO;
 import diploma.autos.catalog.entities.Advertisement;
 import diploma.autos.catalog.entities.Author;
-import diploma.autos.catalog.entities.Car;
-import diploma.autos.catalog.repositories.AdvertisementDTORepository;
-import diploma.autos.catalog.repositories.AdvertisementRepository;
+import diploma.autos.catalog.model.AdvsResponse;
 import diploma.autos.catalog.repositories.CarRepository;
-import diploma.autos.catalog.services.CRUDService;
+import diploma.autos.catalog.services.RetrievingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 @RestController
 public class AdvertisementController {
 
     @Autowired
-    CRUDService crudService;
+    RetrievingService retrievingService;
 
     @Autowired
     CarRepository carRepository;
 
-//    @RequestMapping("/insert")
-//    public Car insertTestCar() {
-//        Car tmpCar = new Car();
-//        tmpCar.setCarId(12);
-//        tmpCar.setBrand("1");
-//        tmpCar.setModel("2");
-//
-//        carRepository.save(tmpCar);
-//
-//        return tmpCar;
-//    }
+    private ObjectMapper mapper = new ObjectMapper();
+
+    public AdvertisementController() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm.sss.S");
+        mapper.setDateFormat(df);
+    }
 
     @RequestMapping("/adv")
-    public Iterable<AdvertisementDTO> getAdv() {
-        return crudService.getAdvsDTO();
+    public ResponseEntity getAdv() {
+        Iterable<AdvertisementDTO> advs;
+        String responseJSON = "";
+        AdvsResponse advsResponse = new AdvsResponse();
+        try {
+            advs = retrievingService.getAdvsDTO();
+            advsResponse.setAdvs(advs);
+            responseJSON = mapper.writeValueAsString(advsResponse);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
     }
 
 
     @RequestMapping("/adv/{id}")
-    public Advertisement getAdv(@PathVariable Integer id) {
-        return crudService.getAdvByAdvId(id);
-//        ObjectMapper mapper = new ObjectMapper();
+    public ResponseEntity getAdv(@PathVariable Integer id) {
+        String responseJSON = "";
+        Advertisement adv;
+
+        try {
+            adv = retrievingService.getAdvByAdvId(id);
+            responseJSON = mapper.writeValueAsString(adv);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
     }
 
     @RequestMapping("/adv/{id}/author")
-    public Author getAuthor(@PathVariable Integer id) {
-        return crudService.getAdvAuthor(id);
+    public ResponseEntity getAuthor(@PathVariable Integer id) {
+        String responseJSON = "";
+        Author author;
+
+        try {
+            author = retrievingService.getAdvAuthor(id);
+            responseJSON = mapper.writeValueAsString(author);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
     }
 
 }
