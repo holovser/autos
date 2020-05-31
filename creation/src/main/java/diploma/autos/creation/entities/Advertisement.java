@@ -16,7 +16,7 @@ public class Advertisement {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int advertisementId;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade=CascadeType.MERGE)
     @JoinColumn(name = "authorID", referencedColumnName = "authorID")
     private Author author;
 
