@@ -34,7 +34,7 @@ public class AuthController {
     private UserRepository userRepository;
 
 
-    @PostMapping("/authenticate")
+    @PostMapping("/api/authenticate")
     public ResponseEntity auth(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
             authenticationManager.authenticate(
@@ -54,7 +54,7 @@ public class AuthController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping("/api/register")
     public ResponseEntity register(@RequestBody User user) {
         if ( !userRepository.findByUsername(user.getUsername()).isPresent()) {
             System.out.println(user);
