@@ -22,6 +22,7 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    // This class was copied from https://github.com/koushikkothagal/spring-security-jwt
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
