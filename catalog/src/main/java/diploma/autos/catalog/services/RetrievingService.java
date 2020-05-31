@@ -3,6 +3,7 @@ package diploma.autos.catalog.services;
 import diploma.autos.catalog.dto.AdvertisementDTO;
 import diploma.autos.catalog.entities.Advertisement;
 import diploma.autos.catalog.entities.Author;
+import diploma.autos.catalog.exceptions.NotFoundException;
 import diploma.autos.catalog.repositories.AdvertisementDTORepository;
 import diploma.autos.catalog.repositories.AdvertisementRepository;
 import diploma.autos.catalog.repositories.CarRepository;
@@ -37,7 +38,7 @@ public class RetrievingService {
         if ( advOptional.isPresent() ) {
             return advOptional.get();
         } else {
-            throw new Exception("Advertisement not found");
+            throw new NotFoundException();
         }
     }
 
@@ -47,7 +48,7 @@ public class RetrievingService {
         if ( advOptional.isPresent() && advOptional.get().getAuthor() != null ) {
             return advOptional.get().getAuthor();
         } else {
-            throw new Exception("Author not found");
+            throw new NotFoundException();
         }
     }
 }
