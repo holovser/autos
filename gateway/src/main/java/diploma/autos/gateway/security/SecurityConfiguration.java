@@ -20,8 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Order(1)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Value("${api.prefix}")
-    private static final String apiPrefix = "/api";
 
     @Autowired
     private CustomUserDetailsService myUserDetailsService;
