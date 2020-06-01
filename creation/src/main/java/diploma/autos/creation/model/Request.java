@@ -1,5 +1,8 @@
 package diploma.autos.creation.model;
 
+/**
+ * Class responsible for creating object which will be send as a post request body in the request to the rating microservice
+ */
 public class Request {
 
     public Request() {
