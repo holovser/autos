@@ -14,9 +14,19 @@ import java.util.Optional;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
+
+    /**
+     * Repository for manipulation with data from the User data table
+     */
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     *
+     * @param s Username
+     * @return UserDetails object
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 

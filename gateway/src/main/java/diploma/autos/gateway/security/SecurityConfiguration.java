@@ -16,14 +16,25 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
+/**
+ * Security configuration class
+ */
 @EnableWebSecurity
 @Order(1)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
+    /**
+     * Service responsible for getting access to the data source
+     */
     @Autowired
     private CustomUserDetailsService myUserDetailsService;
 
+
+    /**
+     * Filter which inspect jwt token passed in the header
+     */
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 

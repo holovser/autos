@@ -2,6 +2,9 @@ package diploma.autos.gateway.model;
 
 import java.io.Serializable;
 
+/**
+ * Request object to which the incoming JSON is mapped
+ */
 public class AuthenticationRequest implements Serializable {
 
     private String username;

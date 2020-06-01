@@ -11,6 +11,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
+/**
+ * Utility class used for creating and validating JWT tokens
+ */
 @Service
 // This class was copied from https://github.com/koushikkothagal/spring-security-jwt
 public class JwtUtil {
