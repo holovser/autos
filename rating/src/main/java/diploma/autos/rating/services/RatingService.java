@@ -14,30 +14,38 @@ import java.util.Optional;
 @Service
 public class RatingService {
 
+    /**
+     * Repository which manipulate with engines data
+     */
     @Autowired
     EngineRatingRepository engineRatingRepository;
+
+    /**
+     * Repository which manipulate with gearbox data
+     */
     @Autowired
     GearboxRatingRepository gearboxRatingRepository;
+
+    /**
+     * Repository which manipulate with generalCar data
+     */
     @Autowired
     GeneralCarRatingRepository generalCarRatingRepository;
 
-//    @Autowired
-//    public RatingService(
-//            EngineRatingRepository engineRatingRepository,
-//            GearboxRatingRepository gearboxRatingRepository,
-//            GeneralCarRatingRepository generalCarRatingRepository
-//    ) {
-//        this.engineRatingRepository = engineRatingRepository;
-//        this.gearboxRatingRepository = gearboxRatingRepository;
-//        this.generalCarRatingRepository = generalCarRatingRepository;
-//    }
 
-    // PK stands for primary key
+    /**
+     *
+     * @param repository Concrete repository
+     * @param pk Primary key
+     * @param <DTO> Data object
+     * @param <PK> Primary key class
+     * @return The looked for object
+     * @throws Exception
+     */
     public <DTO, PK> DTO getRatingObject(CrudRepository repository, PK pk
     ) throws Exception {
 
         Optional<DTO> dtoOptional = repository.findById(pk);
-//        System.out.println(pk.toString());
 
         if (dtoOptional.isEmpty()) {
             throw new NotFoundException(CrudRepository.class.getName() + " Was not successful in looking for object");
@@ -45,6 +53,18 @@ public class RatingService {
         return dtoOptional.get();
     }
 
+    /**
+     * @param carBrand
+     * @param carModel
+     * @param engineBrand
+     * @param engineModel
+     * @param engineVolume
+     * @param gearboxBrand
+     * @param gearboxModel
+     * @param gearboxType
+     * @return Rating value
+     * @throws Exception
+     */
     public double countCarRating(
             String carBrand,
             String carModel,

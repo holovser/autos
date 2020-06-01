@@ -2,6 +2,9 @@ package diploma.autos.rating.model;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Class which represent the request object
+ */
 public class Request {
 
     public Request() {
