@@ -18,7 +18,7 @@ public class Car {
     private String model;
 
     @Column(name = "mileage")
-    public Integer mileage;
+    private Integer mileage;
 
     public Integer getMileage() {
         return mileage;
@@ -123,6 +123,16 @@ public class Car {
         if (model != null ? !model.equals(car.model) : car.model != null) return false;
 
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "carId=" + carId +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", mileage=" + mileage +
+                '}';
     }
 
     @Override
