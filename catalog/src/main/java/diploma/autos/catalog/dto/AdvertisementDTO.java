@@ -3,6 +3,9 @@ package diploma.autos.catalog.dto;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/**
+ * DTO class for working with advertisement table
+ */
 @Entity
 @Table(name = "Advertisement", schema = "catalog", catalog = "")
 public class AdvertisementDTO {

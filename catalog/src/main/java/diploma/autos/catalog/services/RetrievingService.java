@@ -19,20 +19,39 @@ public class RetrievingService {
     public RetrievingService() {
     }
 
+    /**
+     * Repository for retrieving an persisting  cars
+     */
     @Autowired
     CarRepository carRepository;
 
+    /**
+     * Repository for retrieving an persisting advertisements
+     */
     @Autowired
     AdvertisementRepository advertisementRepository;
 
+    /**
+     * Repository for retrieving an persisting  advertisement DTOs
+     */
     @Autowired
     AdvertisementDTORepository advertisementDTORepository;
 
 
+    /**
+     *
+     * @return all Advertisement DTOs
+     */
     public ArrayList<AdvertisementDTO> getAdvsDTO() {
         return (ArrayList<AdvertisementDTO>) advertisementDTORepository.findAll();
     }
 
+    /**
+     *
+     * @param id advertisement id
+     * @return concrete advertisement by it's id
+     * @throws Exception
+     */
     public Advertisement getAdvByAdvId(Integer id) throws Exception {
         Optional<Advertisement> advOptional = advertisementRepository.findAdvertisementByAdvertisementId(id);
         if ( advOptional.isPresent() ) {
@@ -42,6 +61,13 @@ public class RetrievingService {
         }
     }
 
+
+    /**
+     *
+     * @param id Advertisement id
+     * @return Advertisement's author
+     * @throws Exception
+     */
     public Author getAdvAuthor(Integer id) throws Exception {
         Optional<Advertisement> advOptional = advertisementRepository.findAdvertisementByAdvertisementId(id);
 

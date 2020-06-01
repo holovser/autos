@@ -20,22 +20,38 @@ import org.springframework.web.bind.annotation.RestController;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+
+/**
+ * Advertisement controller responsible for retrieving advertisements information
+ */
 @RestController
 public class AdvertisementController {
 
+
+    /**
+     *  service which has the main logic of the microservice
+     */
     @Autowired
     RetrievingService retrievingService;
 
-    @Autowired
-    CarRepository carRepository;
-
+    /**
+     * Object for serializing other objects
+     */
     private ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Constructor set the DateFormat field which solves the problem of converting Timestamp fields
+     */
     public AdvertisementController() {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm.sss.S");
         mapper.setDateFormat(df);
     }
 
+
+    /**
+     *
+     * @return All advertisements
+     */
     @GetMapping("/adv")
     public ResponseEntity getAdv() {
         Iterable<AdvertisementDTO> advs;
@@ -52,6 +68,11 @@ public class AdvertisementController {
     }
 
 
+    /**
+     *
+     * @param id  Id of the particular advertisement
+     * @return    An advertisement
+     */
     @GetMapping("/adv/{id}")
     public ResponseEntity getAdv(@PathVariable Integer id) {
         String responseJSON = "";
@@ -69,20 +90,25 @@ public class AdvertisementController {
         return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
     }
 
-    @GetMapping("/adv/{id}/author")
-    public ResponseEntity getAuthor(@PathVariable Integer id) {
+    /**
+     *
+     * @param advId  Id of the particular advertisement
+     * @return  Author of the advertisement
+     */
+    @GetMapping("/adv/{advId}/author")
+    public ResponseEntity getAuthor(@PathVariable Integer advId) {
         String responseJSON = "";
         Author author;
 
         try {
-            author = retrievingService.getAdvAuthor(id);
+            author = retrievingService.getAdvAuthor(advId);
             responseJSON = mapper.writeValueAsString(author);
         } catch (NotFoundException e) {
             return new ResponseEntity<String>("", null, HttpStatus.NO_CONTENT);
         }  catch (Exception e) {
+            System.out.println(e.getClass());
             return new ResponseEntity<String>(e.getMessage(), null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<String>(responseJSON, null, HttpStatus.OK);
     }
-
 }
