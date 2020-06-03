@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,8 +43,8 @@ public class RetrievingService {
      *
      * @return all Advertisement DTOs
      */
-    public ArrayList<AdvertisementDTO> getAdvsDTO() {
-        return (ArrayList<AdvertisementDTO>) advertisementDTORepository.findAll();
+    public List<AdvertisementDTO> getAdvsDTO() {
+        return (List)advertisementDTORepository.findAll();
     }
 
     /**

@@ -1,56 +1,87 @@
 package diploma.autos.catalog;
 
-import diploma.autos.catalog.entities.Car;
+import diploma.autos.catalog.dto.AdvertisementDTO;
+import diploma.autos.catalog.entities.Advertisement;
+import diploma.autos.catalog.entities.Author;
+import diploma.autos.catalog.repositories.AdvertisementDTORepository;
+import diploma.autos.catalog.repositories.AdvertisementRepository;
 import diploma.autos.catalog.repositories.CarRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
+import diploma.autos.catalog.services.RetrievingService;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-@RunWith(SpringRunner.class)
+
+import java.util.Arrays;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.AdditionalMatchers.not;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.when;
+
 @SpringBootTest
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CatalogApplicationTests {
 
-	@Autowired
+	@MockBean
 	private CarRepository carRepository;
 
-	@Before
-	public void init() {
+	@MockBean
+	private AdvertisementDTORepository advertisementDTORepository;
 
-	}
+	@MockBean
+	private AdvertisementRepository advertisementRepository;
 
-	@Transactional
+	@Autowired
+	private RetrievingService retrievingService;
+
+
+
 	@Test
-	public void test1() {
+	public void findAllAdvertisementsTest() {
 
-		Car tmpCar = new Car();
-//        tmpCar.setCarId(7);
-        tmpCar.setBrand("1234");
-        tmpCar.setModel("1234");
+		AdvertisementDTO adv1 = new AdvertisementDTO();
+		adv1.setAdvertisementId(1);
 
-        carRepository.save(tmpCar);
+		AdvertisementDTO adv2 = new AdvertisementDTO();
+		adv2.setAdvertisementId(2);
 
-		System.out.println(carRepository.findAll());
+		when(advertisementDTORepository.findAll()).thenReturn(Arrays.asList(adv1, adv2));
+
+		assertEquals(Arrays.asList(adv1, adv2), retrievingService.getAdvsDTO());
+	}
+
+	@Test
+	public void findAdvertisementByIdTest() throws Exception {
+		Integer id = 1;
+
+		Advertisement adv = new Advertisement();
+		adv.setAdvertisementId(id);
+
+		when(advertisementRepository.findAdvertisementByAdvertisementId(eq(id))).thenReturn(Optional.of(adv));
+
+		assertEquals(adv, retrievingService.getAdvByAdvId(id));
 	}
 
 
-//	@Test
-//	void test2() {
-//
-//		Car tmpCar = new Car();
-//		tmpCar.setCarId(6);
-//		tmpCar.setBrand("2");
-//		tmpCar.setModel("2");
-//
-//		carRepository.save(tmpCar);
-//
-//		System.out.println(carRepository.findAll());
-//	}
+	@Test
+	public void findAuthorByAdvTest() throws Exception {
+		Integer id = 1;
+
+		Advertisement adv = new Advertisement();
+		adv.setAdvertisementId(id);
+
+		Author author = new Author();
+		author.setAuthorId(1);
+
+		adv.setAuthor(author);
+
+		when(advertisementRepository.findAdvertisementByAdvertisementId(eq(id))).thenReturn(Optional.of(adv));
+
+		assertEquals(author, retrievingService.getAdvAuthor(id));
+	}
+
+
 
 }
