@@ -7,6 +7,7 @@ The order of starting individual services: Discovery Server, All microservices e
 
 ### Catalog, Similarity and Creation data source create script 
 
+```
 create schema catalog collate utf8mb4_0900_ai_ci;
 
 create table Author
@@ -76,9 +77,10 @@ create index fk_Car_Engine1_idx
 create index fk_Car_Gearbox1_idx
 	on Car (Gearbox_gearbox_brand, Gearbox_gearbox_model, Gearbox_gearbox_type);
 
-
+```
 ### Gateway data source create script
 
+```
 create schema users collate utf8_general_ci;
 
 create table Role
@@ -100,9 +102,10 @@ create table User
 create index fk_User_Role_idx
 	on User (Role_role);
   
-  
+```
 ### Rating data source create script  
  
+``` 
 create schema rating collate utf8mb4_0900_ai_ci;
 
 create table Engine_rating
@@ -131,6 +134,6 @@ create table General_car_rating
 	primary key (car_brand, car_model)
 );
 
-
+```
 
 
