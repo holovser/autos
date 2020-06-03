@@ -2,6 +2,7 @@ package diploma.autos.similarity.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ADVERTISEMENT")
@@ -77,11 +78,15 @@ public class Advertisement {
         this.advertisementId = advertisementId;
     }
 
-
     @Override
     public boolean equals(Object o) {
-
-        return true;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Advertisement that = (Advertisement) o;
+        return advertisementId == that.advertisementId &&
+                Objects.equals(created, that.created) &&
+                Objects.equals(rating, that.rating) &&
+                price.equals(that.price);
     }
 
     @Override

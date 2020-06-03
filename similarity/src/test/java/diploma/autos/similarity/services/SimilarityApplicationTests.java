@@ -1,6 +1,8 @@
 package diploma.autos.similarity.services;
 
+import diploma.autos.similarity.entities.Advertisement;
 import diploma.autos.similarity.entities.Car;
+import diploma.autos.similarity.repositories.AdvertisementRepository;
 import diploma.autos.similarity.repositories.CarRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,6 +30,9 @@ class SimilarityApplicationTests {
 	@MockBean
 	CarRepository carRepository;
 
+	@MockBean
+	AdvertisementRepository advertisementRepository;
+
 	@Test
 	public void findCarByIdTest() throws Exception {
 
@@ -44,6 +49,7 @@ class SimilarityApplicationTests {
 	}
 
 	@Test
+	@Deprecated
 	public void findSimilarMileageCarsTest() {
 
 		int pivotPrice = 10000;
@@ -68,4 +74,58 @@ class SimilarityApplicationTests {
 
 		assertEquals(foundExpectedCars, similarityService.findSimilarMileageCars(pivotPrice));
 	}
+
+	@Test
+	public void findSimilarRatingCarsTest() {
+		double pivotRating = 5.0;
+		double lowPivotRating = pivotRating * 0.6;
+		double highPivotRating = pivotRating * 1.4;
+
+		Advertisement adv1 = new Advertisement();
+		adv1.setAdvertisementId(1);
+
+		Advertisement adv2 = new Advertisement();
+		adv2.setAdvertisementId(2);
+
+
+		when(advertisementRepository
+				.findByRatingGreaterThanEqualAndRatingLessThanEqual(eq(lowPivotRating), eq(highPivotRating)))
+				.thenReturn(Arrays.asList(adv1, adv2));
+
+		when(advertisementRepository
+				.findByRatingGreaterThanEqualAndRatingLessThanEqual(not(eq(lowPivotRating)), not(eq(highPivotRating))))
+				.thenReturn(Arrays.asList());
+
+		assertEquals(Arrays.asList(adv1, adv2), similarityService.findSimilarRatingAdvs(pivotRating));
+	}
+
+	@Test
+	public void findSimilarPriceCarsTest() {
+		int pivotPrice = 3000;
+		int lowPivotPrice = (int)(pivotPrice*0.8);
+		int highPivotPrice = (int)(pivotPrice*1.2);
+		System.out.println(lowPivotPrice);
+
+		Advertisement adv1 = new Advertisement();
+		adv1.setAdvertisementId(1);
+
+		Advertisement adv2 = new Advertisement();
+		adv2.setAdvertisementId(2);
+
+
+		when(advertisementRepository
+				.findByPriceGreaterThanEqualAndPriceLessThanEqual(eq(lowPivotPrice), eq(highPivotPrice)))
+				.thenReturn(Arrays.asList(adv1, adv2));
+
+		when(advertisementRepository
+				.findByPriceGreaterThanEqualAndPriceLessThanEqual(not(eq(lowPivotPrice)), not(eq(lowPivotPrice))))
+				.thenReturn(Arrays.asList());
+
+		assertEquals(Arrays.asList(adv1, adv2), similarityService.findSimilarPriceAdvs(pivotPrice));
+	}
+
+
 }
+
+
+
