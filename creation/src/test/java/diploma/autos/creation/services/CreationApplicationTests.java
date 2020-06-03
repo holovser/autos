@@ -34,18 +34,11 @@ class CreationApplicationTests {
     @Autowired
     RestTemplate restTemplate;
 
-    @BeforeEach
-    public void init() {
-
-    }
 
     @Test
-//	@Rollback
-//	@Transactional
     public void createAdvertisementTest() {
         Advertisement adv = new Advertisement();
         assertThrows(DataIntegrityViolationException.class, () -> advRepository.save(adv));
-//		TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
     }
 
     @Test
