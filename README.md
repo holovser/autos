@@ -1,7 +1,7 @@
 # autos
 
 ## Guide
-For recreating a full functionality of the complete system, every microservice has to be started as a separate Maven project. For Catalog, Similarity and Creation microservice a MySql database has to be established. The create scripts for all microservices are shown below. After that all microservices has to be wired with their data sources.
+For recreating a full functionality of the system, every microservice has to be started as a separate Maven project. For Catalog, Similarity and Creation microservice a MySql the same database has to be established. The create scripts for all microservices data sources are shown below. After that all microservices has to be wired with their data sources.
 
 The order of starting individual services: Discovery Server, All microservices except Gateway, Gateway microservice
 
