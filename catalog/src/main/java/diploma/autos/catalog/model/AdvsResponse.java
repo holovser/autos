@@ -1,9 +1,8 @@
 package diploma.autos.catalog.model;
 
 import diploma.autos.catalog.dto.AdvertisementDTO;
-import diploma.autos.catalog.entities.Advertisement;
 
-import java.util.List;
+
 
 public class AdvsResponse {
 
