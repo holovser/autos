@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"diploma.autos.similarity"},{"l":"diploma.autos.similarity.controllers"},{"l":"diploma.autos.similarity.entities"},{"l":"diploma.autos.similarity.exceptions"},{"l":"diploma.autos.similarity.repositories"},{"l":"diploma.autos.similarity.services"}]

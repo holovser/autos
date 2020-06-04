@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"diploma.autos.rating"},{"l":"diploma.autos.rating.controllers"},{"l":"diploma.autos.rating.dto"},{"l":"diploma.autos.rating.exceptions"},{"l":"diploma.autos.rating.model"},{"l":"diploma.autos.rating.repositories"},{"l":"diploma.autos.rating.services"}]
