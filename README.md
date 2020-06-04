@@ -136,4 +136,8 @@ create table General_car_rating
 
 ```
 
+### Documentation
+Swagger documentation: https://app.swaggerhub.com/apis-docs/holovser/Autos/1.0.0-oas3#/
+
+Individual code documentation is available in the directory of each service (except gateway and discovery-server) for example: catalog/apidocs/index.html
 
