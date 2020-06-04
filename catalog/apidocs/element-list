@@ -1,0 +1,8 @@
+diploma.autos.catalog
+diploma.autos.catalog.controllers
+diploma.autos.catalog.dto
+diploma.autos.catalog.entities
+diploma.autos.catalog.exceptions
+diploma.autos.catalog.model
+diploma.autos.catalog.repositories
+diploma.autos.catalog.services

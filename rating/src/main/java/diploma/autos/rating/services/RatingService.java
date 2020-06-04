@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+
+/**
+ * Service which is responsible for assigning a rating value based on passed from controller parameters
+ */
 @Service
 public class RatingService {
 
@@ -38,7 +42,7 @@ public class RatingService {
      * @param repository Concrete repository
      * @param pk Primary key
      * @param <DTO> Data object
-     * @param <PK> Primary key class
+     * @param <PK> Primary key type
      * @return The looked for object
      * @throws Exception
      */

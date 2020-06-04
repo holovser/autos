@@ -1,0 +1,8 @@
+diploma.autos.creation
+diploma.autos.creation.controllers
+diploma.autos.creation.dto
+diploma.autos.creation.entities
+diploma.autos.creation.exceptions
+diploma.autos.creation.model
+diploma.autos.creation.repositories
+diploma.autos.creation.services

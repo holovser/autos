@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"diploma.autos.catalog"},{"l":"diploma.autos.catalog.controllers"},{"l":"diploma.autos.catalog.dto"},{"l":"diploma.autos.catalog.entities"},{"l":"diploma.autos.catalog.exceptions"},{"l":"diploma.autos.catalog.model"},{"l":"diploma.autos.catalog.repositories"},{"l":"diploma.autos.catalog.services"}]
