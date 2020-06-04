@@ -43,6 +43,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(myUserDetailsService);
     }
 
+    /**
+     * Define security rules
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()

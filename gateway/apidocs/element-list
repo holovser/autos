@@ -1,0 +1,7 @@
+diploma.autos.gateway
+diploma.autos.gateway.controllers
+diploma.autos.gateway.filters
+diploma.autos.gateway.model
+diploma.autos.gateway.repositories
+diploma.autos.gateway.security
+diploma.autos.gateway.util

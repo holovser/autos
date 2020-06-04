@@ -17,6 +17,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 
+/**
+ * Controller which implements Auhtentication and Registration functionality
+ */
 @RestController
 @CrossOrigin
 public class AuthController {
@@ -34,6 +37,12 @@ public class AuthController {
     private UserRepository userRepository;
 
 
+    /**
+     *
+     * @param authenticationRequest username and password credentials
+     * @return the JWT token
+     * @throws Exception
+     */
     @PostMapping("/api/authenticate")
     public ResponseEntity auth(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
@@ -54,6 +63,11 @@ public class AuthController {
     }
 
 
+    /**
+     *
+     * @param user username and password credentials
+     * @return
+     */
     @PostMapping("/api/register")
     public ResponseEntity register(@RequestBody User user) {
         if ( !userRepository.findByUsername(user.getUsername()).isPresent()) {
